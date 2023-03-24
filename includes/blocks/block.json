@@ -1,0 +1,11 @@
+{
+	"$schema": "https://json.schemastore.org/block.json",
+	"apiVersion": 2,
+	"name": "arb/reaction-button-block",
+	"title": "Reaction button",
+	"textdomain": "arb-reaction",
+	"icon": "universal-access-alt",
+	"category": "basic",
+	"example": {},
+	"editorScript": "file:./index.js"
+}

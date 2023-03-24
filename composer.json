@@ -1,0 +1,22 @@
+{
+	"name": "anisur2805/arb-reaction-button",
+	"description": "A plugin for reaction button",
+	"type": "wordpress-plugin",
+	"license": "GPLv2",
+	"authors": [
+		{
+			"name": "Anisur Rahman",
+			"email": "anisur2805@gmail.com"
+		}
+	],
+	"minimum-stability": "dev",
+	"require": {},
+	"autoload": {
+		"psr-4": {
+			"ARB\\Reaction_Button\\": "includes/"
+		},
+		"files": [
+			"includes/functions.php"
+		]
+	}
+}
