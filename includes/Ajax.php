@@ -44,6 +44,7 @@ class Ajax {
     }    
     public function main_like_action() {
         global $wpdb;
+        $table_name = $wpdb->prefix . 'arb_reactions';
 
         if ( !wp_verify_nonce( $_REQUEST['_wpnonce'], 'arb-nonce' ) ) {
             wp_send_json_error( [
@@ -54,18 +55,25 @@ class Ajax {
         $id      = ( isset( $_POST[ 'id' ] ) ) ? intval($_POST['id']) : 0;
         $user_id = ( isset( $_POST[ 'user_id' ] ) ) ? intval( $_POST[ 'user_id' ] ) : 0;
         $post_id = ( isset( $_POST[ 'post_id' ] ) ) ? intval( $_POST[ 'post_id' ] ) : 0;
-        
-        $args = [
-            "post_id"       => $post_id,
-            "user_id"       => $user_id,
-            "reaction_id"   => $id,
-        ];
 
-        $insert_id = arb_reset_reaction($args);
+        $existing_reaction_id = $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT reaction_id FROM $table_name WHERE post_id = %d AND user_id = %d",
+                $post_id,
+                $user_id
+            )
+        );
 
-        wp_send_json_success([
-            'id'      => $insert_id,
-            'message' => __( 'submit done!', 'arb-reaction' ),
-        ]);
+        if ( $existing_reaction_id !== 0 ) {
+            $wpdb->update(
+                $table_name,
+                [ 'reaction_id' => 0 ],
+                [ 'post_id' => $post_id, 'user_id' => $user_id ],
+                [ '%d' ],
+                [ '%d', '%d' ]
+            );
+        }
+
+        wp_send_json_success();
     }
 }

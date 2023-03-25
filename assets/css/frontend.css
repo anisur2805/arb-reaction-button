@@ -1,3 +1,6 @@
+.custom-reactions-container {
+    position: relative;
+}
 .custom-reactions-container button {
     outline: 0;
     border: 0;
@@ -8,6 +11,9 @@
     padding: 8px 10px;
     transition: all 0.3s;
     background: #f8f8f8;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .custom-reactions-container .like-wrapper button:hover {
@@ -45,14 +51,45 @@
     border-radius: 50%;
 }
 
-.custom-reactions-container .like-variations button:hover {
-    transform: scale(1.5);
-    transform-origin: center;
-}
-
 .custom-reactions-container:hover .like-variations {
     opacity: 1;
     visibility: visible;
     transform: translateY(-3px);
 }
 
+.custom-reactions-container .like-wrapper button img {
+    width: 20px !important;
+    margin: 0 !important;
+}
+
+
+.custom-reactions-container .like-variations button span {
+    display: none;
+    transition: all 0.3s;
+    transform: scale(0) translateX(-50%);
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    font-size: 9px;
+}
+
+.custom-reactions-container .like-variations button:hover {
+    transform: scale(1.5);
+    transform-origin: center;
+}
+.custom-reactions-container .like-variations button:hover span {
+    display: block;
+    transform: scale(1) translateX(-50%);
+}
+
+.custom-reactions-container  .button-smile span {
+    color: #52a653;
+}
+
+.custom-reactions-container .button-sad span {
+    color: #ff2907;
+}
+
+.custom-reactions-container .button-straight span {
+    color: #183153;
+}

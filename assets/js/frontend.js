@@ -1,7 +1,7 @@
 ;(function ($) {
     $(document).ready(function() {
         const buttons    = document.querySelectorAll(".like-variations button");
-        const likeButton = document.querySelector(".like-wrapper button");
+        const likeButton = document.querySelector(".like-wrapper");
 
         if (typeof buttons !== "undefined" && buttons !== null) {
             buttons.forEach(button => {
@@ -9,9 +9,12 @@
                     e.preventDefault();
                     
                     var self = $(this),
-                        id = self.data('react-id'),
-                        user_id = document.querySelector('input[name="arb_user_id"]').value,
-                        post_id = document.querySelector('input[name="arb_post_id"]').value;
+                    id = self.data('react-id'),
+                    user_id = document.querySelector('input[name="arb_user_id"]').value,
+                    post_id = document.querySelector('input[name="arb_post_id"]').value;
+                    
+                    var html = document.querySelector( '.like-wrapper' );
+                    html.innerHTML = button.outerHTML;
 
                         var data = {
                             id: id,
@@ -38,7 +41,7 @@
         if (typeof likeButton !== "undefined" && likeButton !== null) {
             likeButton.addEventListener("click", function(e) {
                 e.preventDefault();
-                
+                console.log( 'clicked' )
                 var self = $(this),
                     id = self.data('react-id'),
                     user_id = document.querySelector('input[name="arb_user_id"]').value,
@@ -56,8 +59,7 @@
                         if (response.success) {
                             console.log( 'res', response )
                         } else {
-                            alert( response.data.error );
-                            console.log( 'error' )
+                            alert( response )
                         }
                     })
 

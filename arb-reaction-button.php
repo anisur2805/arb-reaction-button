@@ -21,8 +21,6 @@ if (file_exists(dirname(__FILE__) . '/vendor/autoload.php')) {
     require_once dirname(__FILE__) . '/vendor/autoload.php';
 }
 
-require_once dirname(__FILE__) . '/includes/blocks/arb-reaction-button-block.php';
-
 final class ARB_Reaction_Button {
     /**
      * plugin version
@@ -39,6 +37,7 @@ final class ARB_Reaction_Button {
         add_action( 'plugins_loaded', [$this, 'init_plugin'] );
         add_shortcode( 'reaction_button', [$this, 'arb_reaction_button_shortcode' ] );
         add_action( 'elementor/widgets/register', [ $this, 'arb_reaction_button_register_widget' ] );
+        add_action( 'init', [ $this, 'rab_rab_reaction_button_blocks_block_init' ] );
 
     }
 
@@ -101,19 +100,23 @@ final class ARB_Reaction_Button {
             </div>
 
             <div class="like-wrapper">
-                <button class="" data-react-id="1"> <span class="dashicons dashicons-thumbs-up"></span> Like</button>
+                <!-- <button class="" data-react-id="1"> <span class="dashicons dashicons-thumbs-up"></span> Like</button> -->
+                <?php echo arb_retrieve_like_button(); ?>
             </div>
             <div class="like-variations">
                 <input type="hidden" name="arb_user_id" value="<?php echo esc_attr( get_current_user_id() ); ?>" />
                 <input type="hidden" name="arb_post_id" value="<?php echo esc_attr( get_the_ID()); ?>" />
                 <button class="button-smile button-variation-item" data-react-id="1">
                     <img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . 'assets/images/smile.png' ); ?>" />
+                    <span><?php esc_html_e('Smile'); ?></span>
                 </button>
-                <button class="button-smile button-variation-item" data-react-id="2">
+                <button class="button-straight button-variation-item" data-react-id="2">
                     <img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . 'assets/images/straight.png' ); ?>" />
+                    <span><?php esc_html_e('Straight'); ?></span>
                 </button>
-                <button class="button-smile button-variation-item" data-react-id="3">
+                <button class="button-sad button-variation-item" data-react-id="3">
                     <img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . 'assets/images/sad.png' ); ?>" />
+                    <span><?php esc_html_e('Sad'); ?></span>
                 </button>
             </div>
         </div>
@@ -127,7 +130,10 @@ final class ARB_Reaction_Button {
         require_once( __DIR__ . '/includes/widgets/arb-reaction-button-widget.php' );
 
         $widgets_manager->register( new ARB_Reaction_Button_Widget() );
-    } 
+    }
+    function rab_rab_reaction_button_blocks_block_init() {
+        register_block_type( __DIR__ . '/includes/blocks/rab-reaction-button-blocks/build' );
+    }
 
 }
 
