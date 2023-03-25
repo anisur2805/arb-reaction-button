@@ -69,7 +69,7 @@ function arb_get_likes() {
             get_the_ID()
         ) 
     );
-    
+
     $num_liked_by = count( $total_likes );
 
     if( 1 == $num_liked_by ) {
